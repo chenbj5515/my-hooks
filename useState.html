@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="addBtn">click me to add count</div>
+    <div class="logBtn">click me to log count 3s later</div>
+    <div class="count"></div>
+    <div></div>
+    <script>
+        let count = 0;
+        let stateId = 0;
+        const States = [];
+
+        function getState(stateId) {
+            if (!States[stateId]) {
+                States.push({})
+            }
+            return States[stateId];
+        }
+
+        function useState(initialValue) {
+            const currentState = getState(stateId++);
+            return [
+                currentState._value ? currentState._value : currentState._value = initialValue,
+                function setState(currentValue) {
+                    currentState._value = currentValue
+                }
+            ]
+        }
+
+        function HOCFactory() {
+            return function(initalCount) {
+                let count = initalCount;
+                return function () {
+                    function clickHandle() {
+                        setTimeout(() => console.log(count), 3000);
+                    }
+                    document.querySelector('.addBtn').onclick = () => {
+                        data.count++;
+                        document.querySelector('.count').innerHTML = data.count;
+                        HOCFactory()(data.count)()
+                    }
+                    document.querySelector('.logBtn').onclick = clickHandle;
+                }
+            }
+        }
+        HOCFactory()(data.count)()
+    </script>
+</body>
+</html>
