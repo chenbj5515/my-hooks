@@ -12,43 +12,16 @@
     <div></div>
     <script>
         let count = 0;
-        let stateId = 0;
-        const States = [];
-
-        function getState(stateId) {
-            if (!States[stateId]) {
-                States.push({})
-            }
-            return States[stateId];
+        document.querySelector('.count').innerHTML = count;
+        function clickHandle() {
+            setTimeout(() => console.log(count), 3000);
         }
-
-        function useState(initialValue) {
-            const currentState = getState(stateId++);
-            return [
-                currentState._value ? currentState._value : currentState._value = initialValue,
-                function setState(currentValue) {
-                    currentState._value = currentValue
-                }
-            ]
+        document.querySelector('.addBtn').onclick = () => {
+            count++;
+            document.querySelector('.count').innerHTML = count;
         }
-
-        function HOCFactory() {
-            return function(initalCount) {
-                let count = initalCount;
-                return function () {
-                    function clickHandle() {
-                        setTimeout(() => console.log(count), 3000);
-                    }
-                    document.querySelector('.addBtn').onclick = () => {
-                        data.count++;
-                        document.querySelector('.count').innerHTML = data.count;
-                        HOCFactory()(data.count)()
-                    }
-                    document.querySelector('.logBtn').onclick = clickHandle;
-                }
-            }
-        }
-        HOCFactory()(data.count)()
+        document.querySelector('.logBtn').onclick = clickHandle;
+        
     </script>
 </body>
 </html>

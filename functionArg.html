@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="btn">点我发起防抖的点击</div>
+    <script>
+        let a = 0;
+        // let effect = () => {
+        //     console.log(a);
+        // }
+        setInterval(() => {
+            a++;
+        }, 1000);
+        const clickHandle = () => {
+            console.log(a);
+        }
+        const debounce = (fn, wait) => {
+            let timer = null;
+            let _debounce = function (...args) {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
+                else {
+                    timer = setTimeout(fn, wait);
+                }
+            }
+            return _debounce;
+        }
+        document.querySelector('.btn').onclick = debounce(clickHandle, 2000);
+        
+    </script>
+</body>
+</html>

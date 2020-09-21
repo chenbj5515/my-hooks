@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
 
 interface States {
   // useState, useReducer, useRef等会用到的当前值
@@ -82,14 +81,6 @@ function useRef<T>(initialState?: T) {
   return hooksState._value = hooksState._value ? hooksState._value : {
     current: initialState
   }
-}
-
-function useMemo(fn: Function, deps?: Array<any>) {
-  const hooksState = getHooksState(hookIdx++);
-  if (depsChanged(hooksState._deps, deps)) {
-    return hooksState._value = fn();
-  }
-  return hooksState._value;
 }
 
 function App() {

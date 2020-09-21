@@ -7,11 +7,17 @@
 </head>
 <body>
     <div class="addBtn">click me to add count</div>
-    <div class="logBtn">click me to log count 3s later</div>
     <div class="count"></div>
     <div></div>
     <script>
+        let isFirstRender = true;
         let count = 0;
+        function render() {
+            document.querySelector('.addBtn').onclick = () => {
+                setCount(count + 1);
+            }
+            document.querySelector('.count').innerHTML = count;
+        }
         function useState() {
             return [
                 count,
@@ -23,14 +29,13 @@
         }
         function App() {
             const [count, setCount] = useState();
-            function clickHandle() {
-                setTimeout(() => console.log(count), 3000);
+            if (isFirstRender) {
+                setInterval(() => {
+                    setCount(count + 1);
+                }, 1000);
+                isFirstRender = false;
             }
-            document.querySelector('.addBtn').onclick = () => {
-                setCount(count + 1);
-            }
-            document.querySelector('.logBtn').onclick = clickHandle;
-            document.querySelector('.count').innerHTML = count;
+            render();
         }
         App();
     </script>

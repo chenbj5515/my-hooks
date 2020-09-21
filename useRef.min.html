@@ -11,28 +11,27 @@
     <div class="count"></div>
     <div></div>
     <script>
-        let count = 0;
-        function useState() {
-            return [
-                count,
-                function setState(currentCount) {
-                    count = currentCount;
-                    App();
-                }
-            ]
-        }
-        function App() {
-            const [count, setCount] = useState();
-            function clickHandle() {
-                setTimeout(() => console.log(count), 3000);
-            }
-            document.querySelector('.addBtn').onclick = () => {
-                setCount(count + 1);
-            }
-            document.querySelector('.logBtn').onclick = clickHandle;
+        let Ref = {};
+        function render(count) {
+            App();
             document.querySelector('.count').innerHTML = count;
         }
-        App();
+        function useRef(initialValue) {
+            Ref.current = Ref.current ? Ref.current : initialValue;
+            return Ref;
+        }
+        function App() {
+            const countRef = useRef(0);
+            function clickHandle() {
+                setTimeout(() => console.log(countRef.current), 3000);
+            }
+            document.querySelector('.addBtn').onclick = () => {
+                countRef.current++;
+                render(countRef.current);
+            }
+            document.querySelector('.logBtn').onclick = clickHandle;
+        }
+        render(0);
     </script>
 </body>
 </html>

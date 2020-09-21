@@ -1,28 +1,13 @@
 import React, { useState } from "react";
 
 export default function Counter() {
-    let count = 0;
+    const [count, setCount] = useState(0);
     return (
         <>
-            <div onClick={() => count++}></div>
             <div>{count}</div>
+            <div onClick={() => setCount(count + 1)}>click to add count</div>
+            <div onClick={() => setTimeout(() => setCount(count => count + 1), 3000)}>click to show count 3s later</div>
         </>
     )
 }
 
-const initialState = {
-  count: 0,
-  step: 1,
-};
-
-function reducer(state: { count: any; step: any; }, action: { type: string; step?: any; }) {
-  const { count, step } = state;
-  switch (action.type) {
-    case 'add': 
-      return { count: count + step, step }
-    case 'setStep':
-      return { count, step: action.step}
-    default:
-      return { count, step }
-  }
-}
